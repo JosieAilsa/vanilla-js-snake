@@ -1,0 +1,45 @@
+.snake {
+  background-color: darkslategray;
+  border: 2px solid darkslategray;
+  border-radius: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: darkslategrey;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+}
+body #score {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 80vmin;
+}
+body #score #score__text, body #score #score__value {
+  color: cornsilk;
+}
+body #board {
+  background-color: cornsilk;
+  width: 80vmin;
+  height: 80vmin;
+  display: grid;
+  grid-template-columns: repeat(25, 1fr);
+  grid-template-rows: repeat(25, 1fr);
+}
+body .start--hide {
+  display: none !important;
+}
+body .start {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  grid-area: 1/1/26/26;
+}
