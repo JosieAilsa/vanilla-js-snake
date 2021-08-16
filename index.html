@@ -11,14 +11,24 @@
 </head>
 <body>
     <div id = "score">
-        <h2 id = "score__text">High score:</h2> 
-        <h2 id = "score__value"> X </h2>
+        <div class = "scores">
+            <h2 id = "score__text">Your score:</h2> 
+            <h2 id = "score__value"> X </h2>
+        </div>
+        <div class = "scores">
+            <h2 id = "score__text">High score:</h2> 
+            <h2 id = "score__value"> X </h2>
+        </div>
     </div>
     <!-- 15 by 15 Board -->
     <div class = "container" id = "board">
         <div id ="start" class ="start--hide"> 
             <h1 class = "start__title">Snake</h1>
             <button id ="start__button">Let's play!</button>
+        </div>
+        <div id ="end" class ="end--hide"> 
+            <h1 class = "end__title">Too bad :( </h1>
+            <button id ="end__button">Play again!</button>
         </div>
     </div>
     <!-- //Control buttons -->
