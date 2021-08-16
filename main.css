@@ -1,3 +1,7 @@
+.apple {
+  background-color: red;
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -21,13 +25,17 @@ body #score {
 body #score #score__text, body #score #score__value {
   color: cornsilk;
 }
-body #board {
+body .screen {
   background-color: cornsilk;
   width: 80vmin;
   height: 80vmin;
-  display: grid;
-  grid-template-columns: repeat(25, 1fr);
-  grid-template-rows: repeat(25, 1fr);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+body .screen .board__square {
+  width: 4%;
+  height: 4%;
 }
 body .start--hide {
   display: none !important;
@@ -39,7 +47,6 @@ body .start {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  grid-area: 1/1/26/26;
 }
 body .end--hide {
   display: none !important;
@@ -51,5 +58,19 @@ body .end {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  grid-area: 1/1/26/26;
+}
+body .board--hide {
+  display: none;
+}
+body .board {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+body .controls {
+  width: 80vmin;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

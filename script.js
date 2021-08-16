@@ -1,11 +1,43 @@
 /*
 1. When user clicks start hide the start div
+*/
+const startGame = document.querySelector("#start");
+const startButton = document.querySelector("#start__button");
+const boardSquares= document.querySelectorAll(".board__square");
+const board = document.querySelector("#board");
+const textScreen = document.querySelector("#textScreen");
 
-2. Create new apple in a random location
-- Create a div in the random location using appendChild 
-- Style with CSS classes using svg as bg
-- Use grid col/row start to generate random values (using mathRandom) then +1 to each number to get apple location
+startButton.addEventListener("click", () => {
+ // Remove add the start hidden class 
+    startGame.classList.add("start--hide");
+    textScreen.classList.remove("screen");
+    textScreen.classList.add("screen--hide");
+    board.classList.remove("screen--hide");
+    board.classList.add("screen");
 
+// Add the divs to the game board 
+    //Set up for a for loop to run 625 (25*25) times to add the divs to the board
+    // for (let i = 0; i < 625; i++) {
+    // let squareNumber = [i];
+    // let squareHTML = `<div class = "board__square" id = "${squareNumber}"></div>`;
+    // board.innerHTML += squareHTML; 
+    // };
+});
+
+
+/*2. Create new apple in a random location*/
+
+let getAppleLocation = (boardSquaresNodeList) => {
+    let appleRandomIndex = Math.floor(Math.random() * 626);
+    let appleLocation = boardSquaresNodeList[appleRandomIndex]; 
+    appleLocation.classList.add
+
+
+}
+
+
+/*- Style with CSS classes using svg as bg
+Use square id number to identify location of the apple 
 3.Create the static snake
 - Set size as 1 col/row width
 - Add stying 
@@ -17,7 +49,8 @@
         Will move +1(right) or -1(left) x
     If the previous key was left or right:
         Can move +1(down) or -1(up) y 
-
+setInterval - milliseconds 
+setTimeOut - delay
 //Winnning the round//
 
     if snakeHead === x&y of apple = +50 points added to score value
