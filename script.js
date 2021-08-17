@@ -16,6 +16,7 @@ let snakeLocation = {
     head:  0,
 };
 let boardCenter = 312;
+let lastButton = "";
 
 ///Get random apple function 
 let getAppleLocation = (boardSquares) => {
@@ -55,52 +56,67 @@ boardSquares.forEach((square, index ) => {
     square.setAttribute(`id`, `${squareNumber}`)
 });
 
-console.log(snakeLocation);
+
 
 // 2. Set up the logic for the moving snake 
 // Set up the repeating function that will check to see if a key has been pressed
 
+let snakeMove = (boardSquares, currentSnake, directionValue, direction) =>  {
+    let currentSnakeIndex = boardSquares[currentSnake];
+    currentSnakeIndex.classList.remove("snake--head");
+    currentSnake = currentSnake - directionValue;
+    currentSnakeIndex = boardSquares[currentSnake];
+    currentSnakeIndex.classList.add("snake--head")
+    lastButton = `${direction}`;
+    return snakeLocation.head = currentSnake;
+    };
+
+let snakeLoopId; 
 
     up.addEventListener("click", () => {
-    let currentSnake = snakeLocation.head;
-    boardSquares[currentSnake].classList.remove("snake--head");
-    currentSnake = currentSnake - 25;
-    boardSquares[currentSnake].classList.add("snake--head")
-    snakeLocation.head = currentSnake;
-    console.log(snakeLocation)
+        if (lastButton === "left" || lastButton === "right" || lastButton === "") {
+        window.clearInterval(snakeLoopId);
+        let upSnake = () => {
+            let currentSnake = snakeLocation.head;
+            return snakeMove(boardSquares, currentSnake, 25, "up");
+            };
+        snakeLoopId = window.setInterval(upSnake,500);
+        }
+    });
+    
+    left.addEventListener("click", () => {
+        if (lastButton === "up" || lastButton === "down" || lastButton === "" ) {
+            window.clearInterval(snakeLoopId);
+            let leftSnake = () => {
+                let currentSnake = snakeLocation.head;
+                return snakeMove(boardSquares, currentSnake, 1, "left");
+            };
+        snakeLoopId = window.setInterval(leftSnake,500);
+        }
+    });
+    
+    right.addEventListener("click", () => {
+        if (lastButton === "up" || lastButton === "down" || lastButton === "") {
+            window.clearInterval(snakeLoopId);
+            let rightSnake = () => {
+                let currentSnake = snakeLocation.head;
+                return snakeMove(boardSquares, currentSnake, -1, "right");
+            };
+        snakeLoopId = window.setInterval(rightSnake, 500);
+        };
     });
 
-
-
-    left.addEventListener("click", () => {
-        let currentSnake = snakeLocation.head;
-        boardSquares[currentSnake].classList.remove("snake--head");
-        currentSnake = currentSnake - 1;
-        boardSquares[currentSnake].classList.add("snake--head")
-        snakeLocation.head = currentSnake;
-        });
-    
-
-
-
-    right.addEventListener("click", () => {
-        let currentSnake = snakeLocation.head;
-        boardSquares[currentSnake].classList.remove("snake--head");
-        currentSnake = currentSnake + 1;
-        boardSquares[currentSnake].classList.add("snake--head")
-        snakeLocation.head = currentSnake;
-        });
-
-
     down.addEventListener("click", () => {
-        let currentSnake = snakeLocation.head;
-        console.log(currentSnake)
-        boardSquares[currentSnake].classList.remove("snake--head");
-        currentSnake = currentSnake + 25;
-        boardSquares[currentSnake].classList.add("snake--head")
-        snakeLocation.head = currentSnake;
-        });
-    
+        if (lastButton === "left" || lastButton === "right" || lastButton === "") {
+            window.clearInterval(snakeLoopId);
+            let downSnake = () => {
+                let currentSnake = snakeLocation.head;
+                return snakeMove(boardSquares, currentSnake, -25, "down");
+            };
+        snakeLoopId = window.setInterval(downSnake,500);
+        };
+    });
+
     
     
     
