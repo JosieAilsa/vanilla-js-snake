@@ -2,49 +2,110 @@
 1. When user clicks start hide the start div
 */
 const startGame = document.querySelector("#start");
+const endGame = document.querySelector("#end");
 const startButton = document.querySelector("#start__button");
+const replayButton = document.querySelector("#start__button");
 const boardSquares= document.querySelectorAll(".board__square");
 const board = document.querySelector("#board");
 const textScreen = document.querySelector("#textScreen");
+const up = document.querySelector("#up");
+const left = document.querySelector("#left");
+const right = document.querySelector("#right");
+const down = document.querySelector("#down");
+let snakeLocation = {
+    head:  0,
+};
+let boardCenter = 312;
 
+///Get random apple function 
+let getAppleLocation = (boardSquares) => {
+    //Create a random number between 0-625
+    let appleRandomIndex = Math.floor(Math.random() * 626);
+    //Set this to the apple location 
+    let appleLocation = boardSquares[appleRandomIndex]; 
+    //Add a class to this location 
+    appleLocation.classList.add("apple");
+}
+// Get starting 
+let getStartingSnake = (boardSquares) => {
+    //Identify the center square 
+    snakeLocation.head = boardCenter;
+    let startingSnake = boardSquares[boardCenter];
+    //Put the snake class on the center peice 
+    startingSnake.classList.add("snake--head");
+}
+
+//Game setup
 startButton.addEventListener("click", () => {
  // Remove add the start hidden class 
     startGame.classList.add("start--hide");
     textScreen.classList.remove("screen");
     textScreen.classList.add("screen--hide");
+    //Show the new game board 
     board.classList.remove("screen--hide");
     board.classList.add("screen");
+    //Add the static starting locations for the snake & apple
+    getAppleLocation(boardSquares);
+    getStartingSnake(boardSquares);
 
-// Add the divs to the game board 
-    //Set up for a for loop to run 625 (25*25) times to add the divs to the board
-    // for (let i = 0; i < 625; i++) {
-    // let squareNumber = [i];
-    // let squareHTML = `<div class = "board__square" id = "${squareNumber}"></div>`;
-    // board.innerHTML += squareHTML; 
-    // };
+
+});
+boardSquares.forEach((square, index ) => {
+    let squareNumber = index;
+    square.setAttribute(`id`, `${squareNumber}`)
 });
 
+console.log(snakeLocation);
 
-/*2. Create new apple in a random location*/
-
-let getAppleLocation = (boardSquaresNodeList) => {
-    let appleRandomIndex = Math.floor(Math.random() * 626);
-    let appleLocation = boardSquaresNodeList[appleRandomIndex]; 
-    appleLocation.classList.add
+// 2. Set up the logic for the moving snake 
+// Set up the repeating function that will check to see if a key has been pressed
 
 
-}
+    up.addEventListener("click", () => {
+    let currentSnake = snakeLocation.head;
+    boardSquares[currentSnake].classList.remove("snake--head");
+    currentSnake = currentSnake - 25;
+    boardSquares[currentSnake].classList.add("snake--head")
+    snakeLocation.head = currentSnake;
+    console.log(snakeLocation)
+    });
 
 
-/*- Style with CSS classes using svg as bg
-Use square id number to identify location of the apple 
-3.Create the static snake
-- Set size as 1 col/row width
-- Add stying 
-- For the head have a seperate class with an svg bg image
 
-4. Logic of how the snake will move
-- Every second the snake will move based on last button pressed by user  
+    left.addEventListener("click", () => {
+        let currentSnake = snakeLocation.head;
+        boardSquares[currentSnake].classList.remove("snake--head");
+        currentSnake = currentSnake - 1;
+        boardSquares[currentSnake].classList.add("snake--head")
+        snakeLocation.head = currentSnake;
+        });
+    
+
+
+
+    right.addEventListener("click", () => {
+        let currentSnake = snakeLocation.head;
+        boardSquares[currentSnake].classList.remove("snake--head");
+        currentSnake = currentSnake + 1;
+        boardSquares[currentSnake].classList.add("snake--head")
+        snakeLocation.head = currentSnake;
+        });
+
+
+    down.addEventListener("click", () => {
+        let currentSnake = snakeLocation.head;
+        console.log(currentSnake)
+        boardSquares[currentSnake].classList.remove("snake--head");
+        currentSnake = currentSnake + 25;
+        boardSquares[currentSnake].classList.add("snake--head")
+        snakeLocation.head = currentSnake;
+        });
+    
+    
+    
+    
+
+/*- Every second the snake will move based on last button pressed by user  
     If the previous key was up/down :
         Will move +1(right) or -1(left) x
     If the previous key was left or right:
