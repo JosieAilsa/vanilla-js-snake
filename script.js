@@ -10,10 +10,11 @@ const up = document.querySelector("#up");
 const left = document.querySelector("#left");
 const right = document.querySelector("#right");
 const down = document.querySelector("#down");
-const easy = document.querySelectorAll("#easy");
-const medium = document.querySelector("#medium");
-const hard = document.querySelector("#hard");
-const expert = document.querySelector("#expert");
+const levelButton = document.querySelectorAll(".level__button");
+const level = document.querySelector(".level");
+// const medium = document.querySelector("#medium");
+// const hard = document.querySelector("#hard");
+// const expert = document.querySelector("#expert");
 
 
 //Declare gloabl vars 
@@ -23,8 +24,6 @@ let snakeLocation = {
 let boardCenter = 312;
 let lastButton = "";
 let snakeSpeed = 0; 
-
-easy.addEventListener()
 
 ///Get random apple function 
 let getAppleLocation = (boardSquares) => {
@@ -45,25 +44,37 @@ let getStartingSnake = (boardSquares) => {
 }
 
 //Game setup
+levelButton.forEach((button) => {
+    button.addEventListener(("change"), event => {
+        snakeSpeed = event.target.value;
+        return console.log(snakeSpeed)
+    });
+});
+
 startButton.addEventListener("click", () => {
- // Remove add the start hidden class 
-    startGame.classList.add("start--hide");
-    textScreen.classList.remove("screen");
-    textScreen.classList.add("screen--hide");
-    //Show the new game board 
-    board.classList.remove("screen--hide");
-    board.classList.add("screen");
-    //Add the static starting locations for the snake & apple
-    getAppleLocation(boardSquares);
-    getStartingSnake(boardSquares);
-
-
+    if (snakeSpeed >= 1) {
+// Remove the difficuty error if showing 
+        level.classList.remove("level--error")
+    // Remove add the start hidden class 
+        startGame.classList.add("start--hide");
+        textScreen.classList.remove("screen");
+        textScreen.classList.add("screen--hide");
+        //Show the new game board 
+        board.classList.remove("screen--hide");
+        board.classList.add("screen");
+        //Add the static starting locations for the snake & apple
+        getAppleLocation(boardSquares);
+        getStartingSnake(boardSquares);
+    } else {
+    level.classList.add("level--error")
+    }
 });
-boardSquares.forEach((square, index ) => {
-    let squareNumber = index;
-    square.setAttribute(`id`, `${squareNumber}`)
-});
 
+
+// boardSquares.forEach((square, index ) => {
+//     let squareNumber = index;
+//     square.setAttribute(`id`, `${squareNumber}`)
+// });
 
 
 // 2. Set up the logic for the moving snake 
@@ -88,7 +99,7 @@ let snakeLoopId;
             let currentSnake = snakeLocation.head;
             return snakeMove(boardSquares, currentSnake, 25, "up");
             };
-        snakeLoopId = window.setInterval(upSnake,500);
+        snakeLoopId = window.setInterval(upSnake,(1000/snakeSpeed));
         }
     });
     
@@ -99,7 +110,7 @@ let snakeLoopId;
                 let currentSnake = snakeLocation.head;
                 return snakeMove(boardSquares, currentSnake, 1, "left");
             };
-        snakeLoopId = window.setInterval(leftSnake,500);
+        snakeLoopId = window.setInterval(leftSnake,(1000/snakeSpeed));
         }
     });
     
@@ -110,7 +121,7 @@ let snakeLoopId;
                 let currentSnake = snakeLocation.head;
                 return snakeMove(boardSquares, currentSnake, -1, "right");
             };
-        snakeLoopId = window.setInterval(rightSnake, 500);
+        snakeLoopId = window.setInterval(rightSnake, (1000/snakeSpeed));
         };
     });
 
@@ -121,7 +132,7 @@ let snakeLoopId;
                 let currentSnake = snakeLocation.head;
                 return snakeMove(boardSquares, currentSnake, -25, "down");
             };
-        snakeLoopId = window.setInterval(downSnake,500);
+        snakeLoopId = window.setInterval(downSnake,(1000/snakeSpeed));
         };
     });
 

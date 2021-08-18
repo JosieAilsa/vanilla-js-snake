@@ -15,6 +15,9 @@ body {
         color: cornsilk;
         width: 80vmin;
     }
+    .level--error{
+        border: 2px solid red;
+    }
 
     .scores {
         display: flex;
