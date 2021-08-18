@@ -12,42 +12,44 @@ const right = document.querySelector("#right");
 const down = document.querySelector("#down");
 const levelButton = document.querySelectorAll(".level__button");
 const level = document.querySelector(".level");
-// const medium = document.querySelector("#medium");
-// const hard = document.querySelector("#hard");
-// const expert = document.querySelector("#expert");
-
 
 //Declare gloabl vars 
-let snakeLocation = {
-    head:  0,
-};
-let boardCenter = 312;
+// let snakeBody = [];
+// let snakeLocation = {
+//     head:  0,
+//     body: snakeBody,
+
+let snakeArray = [];
 let lastButton = "";
-let snakeSpeed = 0; 
+let snakeSpeed = 0;  
+let currentApple;
+
 
 ///Get random apple function 
 let getAppleLocation = (boardSquares) => {
     //Create a random number between 0-625
-    let appleRandomIndex = Math.floor(Math.random() * 626);
+    let getAppleRandomIndex = Math.floor(Math.random() * 626);
     //Set this to the apple location 
-    let appleLocation = boardSquares[appleRandomIndex]; 
+    let appleLocation = boardSquares[getAppleRandomIndex]; 
     //Add a class to this location 
     appleLocation.classList.add("apple");
+    currentApple = getAppleRandomIndex;
 }
 // Get starting 
-let getStartingSnake = (boardSquares) => {
+let getStartingSnake = (snakeArray, boardSquares) => {
     //Identify the center square 
-    snakeLocation.head = boardCenter;
+    let boardCenter = 312
+    snakeArray.push(boardCenter);
     let startingSnake = boardSquares[boardCenter];
     //Put the snake class on the center peice 
     startingSnake.classList.add("snake--head");
+    return snakeArray
 }
 
 //Game setup
 levelButton.forEach((button) => {
     button.addEventListener(("change"), event => {
-        snakeSpeed = event.target.value;
-        return console.log(snakeSpeed)
+        return snakeSpeed = event.target.value;
     });
 });
 
@@ -64,41 +66,21 @@ startButton.addEventListener("click", () => {
         board.classList.add("screen");
         //Add the static starting locations for the snake & apple
         getAppleLocation(boardSquares);
-        getStartingSnake(boardSquares);
+        getStartingSnake(snakeArray, boardSquares);
     } else {
     level.classList.add("level--error")
     }
 });
 
 
-// boardSquares.forEach((square, index ) => {
-//     let squareNumber = index;
-//     square.setAttribute(`id`, `${squareNumber}`)
-// });
-
-
 // 2. Set up the logic for the moving snake 
-// Set up the repeating function that will check to see if a key has been pressed
-
-let snakeMove = (boardSquares, currentSnake, directionValue, direction) =>  {
-    let currentSnakeIndex = boardSquares[currentSnake];
-    currentSnakeIndex.classList.remove("snake--head");
-    currentSnake = currentSnake - directionValue;
-    currentSnakeIndex = boardSquares[currentSnake];
-    currentSnakeIndex.classList.add("snake--head")
-    lastButton = `${direction}`;
-    return snakeLocation.head = currentSnake;
-    };
 
 let snakeLoopId; 
 
     up.addEventListener("click", () => {
         if (lastButton === "left" || lastButton === "right" || lastButton === "") {
         window.clearInterval(snakeLoopId);
-        let upSnake = () => {
-            let currentSnake = snakeLocation.head;
-            return snakeMove(boardSquares, currentSnake, 25, "up");
-            };
+        snakeMove(snakeArray, boardSquares, 25, "up");
         snakeLoopId = window.setInterval(upSnake,(1000/snakeSpeed));
         }
     });
@@ -135,38 +117,60 @@ let snakeLoopId;
         snakeLoopId = window.setInterval(downSnake,(1000/snakeSpeed));
         };
     });
-
+    //Each time there is a win create a new key pair for the snakeObject
+    let checkForWin = (currentSnakeHead,currentApple) => {
+        currentSnakeHead = snakeArray[0];
     
+    //if the snake head is the same as the apple
+        if (boardSquares[currentSnakeHead] == boardSquares[currentApple]) {
+    //add the current snake head position to the snake body array 
+            snakeBody.push(currentSnake);
+            numberOfWins += 1;
+        }
+    }
 
 
-/*- Every second the snake will move based on last button pressed by user  
-    If the previous key was up/down :
-        Will move +1(right) or -1(left) x
-    If the previous key was left or right:
-        Can move +1(down) or -1(up) y 
-setInterval - milliseconds 
-setTimeOut - delay
+let snakeMove = (snakeArray, boardSquares, directionValue, direction) =>  {
+    //Check the new location to move to 
+    let currentSnakeHead = snakeArray[0];
+    let newSnakeHead = currentSnakeHead - directionValue;
+    //Push this new value to the start of the snake array
+    snakeArray.shift (newSnakeHead);
+    //This now gives an array that is now one too long so delete the last item but hold it in a new var
+    let lastSnakePart = snakeArray.pop()
+    //For each element in the snake array loop through it and access the nodelist at those indexes 
+    for (i = 0; i <snakeArray; i++){
+    //Add the snake classlist at those indexes
+        let eachSnakeBodyPart = snakeArray[i];
+       let snakeIndexValue = boardSquares[eachSnakeBodyPart]
+        snakeIndexValue[eachSnakeBodyPart].classList.add("snake--head");
+     };
+    //Now remove the snake value from the value in the final array
+    let bodyRemoveSnakeBodyPart = boardSquares[lastSnakePart];
+    bodyRemoveSnakeBodyPart.classList.remove("snake--head");
+    lastButton = `${direction}`;
+    return snakeArray;
+    };
+
+//Every time there is a win a key value pair body part is created in the snake 
+
+
 //Winnning the round//
 
-    if snakeHead === x&y of apple = +50 points added to score value
+// //Ending the game//
 
+//     If the snake hits x or y coordinate of 1 or 25 = game over
+//     if snakeHead === x & y of other snake body also game over 
 
-//Ending the game//
+//     Show play again loop
 
-    If the snake hits x or y coordinate of 1 or 25 = game over
-    if snakeHead === x & y of other snake body also game over 
+//     Push score to high scores array. Use .filter to find IF high score and add to innnerHTML on game UI 
 
-    Show play again loop
+//     Show the play again div
 
-    Push score to high scores array. Use .filter to find IF high score and add to innnerHTML on game UI 
-
-    Show the play again div
-
-5. Create an array for high score and variable for current score. Each time snake eats apple score += points. 
+// 5. Create an array for high score and variable for current score. Each time snake eats apple score += points. 
 
 
 
 
 
-
-*/
