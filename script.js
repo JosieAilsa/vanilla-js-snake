@@ -17,6 +17,7 @@ let snakeLocation = {
 };
 let boardCenter = 312;
 let lastButton = "";
+let snakeSpeed = 0
 
 ///Get random apple function 
 let getAppleLocation = (boardSquares) => {
@@ -118,8 +119,7 @@ let snakeLoopId;
     });
 
     
-    
-    
+
 
 /*- Every second the snake will move based on last button pressed by user  
     If the previous key was up/down :

@@ -9,14 +9,27 @@
     <script src="./script.js" defer></script>
 </head>
 <body>
-    <div id = "score">
-        <div class = "scores">
-            <h2 id = "score__text">Your score:</h2> 
-            <h2 id = "score__value"> X </h2>
+    <div class = "game-details">
+        <div id = "level">
+            <h2 class = "level__text">Difficulty:</h2> 
+            <input type = "radio" id = "1" name ="difficulty" value = 1>
+            <label for="level-1">Easy</label>
+            <input type = "radio" id = "2" name ="difficulty" value = 2>
+            <label for="level-2">Medium</label>
+            <input type = "radio" id = "3" name ="difficulty" value = 3>
+            <label for="level-3">Hard</label>
+            <input type = "radio" id = "4" name ="difficulty" value = 4>
+            <label for="level-3">Expert</label>
         </div>
-        <div class = "scores">
-            <h2 id = "score__text">High score:</h2> 
-            <h2 id = "score__value"> X </h2>
+        <div id = "score">
+            <div class = "scores">
+                <h2 id = "score__text">Your score:</h2> 
+                <h2 id = "score__value"> X </h2>
+            </div>
+            <div class = "scores">
+                <h2 id = "score__text">High score:</h2> 
+                <h2 id = "score__value"> X </h2>
+            </div>
         </div>
     </div>
     <!-- 25 by 25 Board -->

@@ -16,6 +16,13 @@ body {
   width: 100vw;
   height: 100vh;
 }
+body .game-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: cornsilk;
+  width: 80vmin;
+}
 body .scores {
   display: flex;
   flex-direction: row;
