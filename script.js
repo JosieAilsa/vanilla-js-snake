@@ -1,6 +1,4 @@
-/*
-1. When user clicks start hide the start div
-*/
+//Get DOM refs
 const startGame = document.querySelector("#start");
 const endGame = document.querySelector("#end");
 const startButton = document.querySelector("#start__button");
@@ -12,12 +10,21 @@ const up = document.querySelector("#up");
 const left = document.querySelector("#left");
 const right = document.querySelector("#right");
 const down = document.querySelector("#down");
+const easy = document.querySelectorAll("#easy");
+const medium = document.querySelector("#medium");
+const hard = document.querySelector("#hard");
+const expert = document.querySelector("#expert");
+
+
+//Declare gloabl vars 
 let snakeLocation = {
     head:  0,
 };
 let boardCenter = 312;
 let lastButton = "";
-let snakeSpeed = 0
+let snakeSpeed = 0; 
+
+easy.addEventListener()
 
 ///Get random apple function 
 let getAppleLocation = (boardSquares) => {
