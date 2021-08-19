@@ -36,13 +36,14 @@ let getAppleLocation = (boardSquares) => {
     currentApple = getAppleRandomIndex;
 }
 // Get starting 
-let getStartingSnake = (snakeArray, boardSquares) => {
+let getStartingSnake = () => {
     //Identify the center square 
     let boardCenter = 312
     snakeArray.push(boardCenter);
     let startingSnake = boardSquares[boardCenter];
     //Put the snake class on the center peice 
     startingSnake.classList.add("snake--head");
+    return snakeArray;
 }
 
 //Game setup
@@ -80,7 +81,7 @@ let snakeLoopId;
         if (lastButton === "left" || lastButton === "right" || lastButton === "") {
         window.clearInterval(snakeLoopId);
         let upSnake = () => {
-        return snakeMove(snakeArray, boardSquares, 25, "up");
+        return snakeMove( 25, "up");
         };
         snakeLoopId = window.setInterval(upSnake,(1000/snakeSpeed));
         }
@@ -90,7 +91,7 @@ let snakeLoopId;
         if (lastButton === "up" || lastButton === "down" || lastButton === "" ) {
             window.clearInterval(snakeLoopId);
             let leftSnake = () => {
-                return snakeMove(snakeArray, boardSquares, 1, "left");
+                return snakeMove( 1, "left");
             };
         snakeLoopId = window.setInterval(leftSnake,(1000/snakeSpeed));
         }
@@ -100,7 +101,7 @@ let snakeLoopId;
         if (lastButton === "up" || lastButton === "down" || lastButton === "") {
             window.clearInterval(snakeLoopId);
             let rightSnake = () => {
-                return snakeMove(snakeArray, boardSquares, -1, "right");
+                return snakeMove( -1, "right");
             };
         snakeLoopId = window.setInterval(rightSnake, (1000/snakeSpeed));
         };
@@ -110,7 +111,7 @@ let snakeLoopId;
         if (lastButton === "left" || lastButton === "right" || lastButton === "") {
             window.clearInterval(snakeLoopId);
             let downSnake = () => {
-                return snakeMove(snakeArray, boardSquares, -25, "down");
+                return snakeMove( -25, "down");
             };
         snakeLoopId = window.setInterval(downSnake,(1000/snakeSpeed));
         };
@@ -122,31 +123,31 @@ let snakeLoopId;
         if (boardSquares[currentSnakeHead] == boardSquares[currentApple]) {
     //add the current snake head position to the snake body array 
             snakeArray.push(currentSnakeHead);
-            getAppleLocation(boardSquares);
-            boardSquares[currentApple].classList.remove("apple");
+            boardSquares[currentApple].classList.remove("apple")
+            getAppleLocation(boardSquares)
            
         }
        
     }
 
 
-let snakeMove = (snakeArray, boardSquares, directionValue, direction) =>  {
+let snakeMove = (directionValue, direction) =>  {
     //Check the new location to move to 
     let currentSnakeHead = snakeArray[0];
     checkForWin(currentSnakeHead,currentApple, snakeArray)
     let newSnakeHead = currentSnakeHead - directionValue;
     //Push this new value to the start of the snake array
-    snakeArray.push(newSnakeHead);
+    snakeArray.unshift(newSnakeHead);
     console.log(snakeArray)
     //This now gives an array that is now one too long so delete the last item but hold it in a new var
-    let lastSnakePart = snakeArray.shift()
+    let lastSnakePart = snakeArray.pop()
     snakeArray.forEach((part) => {
        let eachPartIndex = boardSquares[part]
        eachPartIndex.classList.add("snake--head");
      });
+    console.log(lastSnakePart)
     //Now remove the snake value from the value in the final array
-    let bodyRemoveSnakeBodyPart = boardSquares[lastSnakePart];
-    bodyRemoveSnakeBodyPart.classList.remove("snake--head");
+    boardSquares[lastSnakePart].classList.remove("snake--head");
     lastButton = `${direction}`;
     return snakeArray;
     };
