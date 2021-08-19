@@ -43,7 +43,6 @@ let getStartingSnake = (snakeArray, boardSquares) => {
     let startingSnake = boardSquares[boardCenter];
     //Put the snake class on the center peice 
     startingSnake.classList.add("snake--head");
-    return snakeArray
 }
 
 //Game setup
@@ -80,7 +79,9 @@ let snakeLoopId;
     up.addEventListener("click", () => {
         if (lastButton === "left" || lastButton === "right" || lastButton === "") {
         window.clearInterval(snakeLoopId);
-        snakeMove(snakeArray, boardSquares, 25, "up");
+        let upSnake = () => {
+        return snakeMove(snakeArray, boardSquares, 25, "up");
+        };
         snakeLoopId = window.setInterval(upSnake,(1000/snakeSpeed));
         }
     });
@@ -89,8 +90,7 @@ let snakeLoopId;
         if (lastButton === "up" || lastButton === "down" || lastButton === "" ) {
             window.clearInterval(snakeLoopId);
             let leftSnake = () => {
-                let currentSnake = snakeLocation.head;
-                return snakeMove(boardSquares, currentSnake, 1, "left");
+                return snakeMove(snakeArray, boardSquares, 1, "left");
             };
         snakeLoopId = window.setInterval(leftSnake,(1000/snakeSpeed));
         }
@@ -100,8 +100,7 @@ let snakeLoopId;
         if (lastButton === "up" || lastButton === "down" || lastButton === "") {
             window.clearInterval(snakeLoopId);
             let rightSnake = () => {
-                let currentSnake = snakeLocation.head;
-                return snakeMove(boardSquares, currentSnake, -1, "right");
+                return snakeMove(snakeArray, boardSquares, -1, "right");
             };
         snakeLoopId = window.setInterval(rightSnake, (1000/snakeSpeed));
         };
@@ -111,40 +110,40 @@ let snakeLoopId;
         if (lastButton === "left" || lastButton === "right" || lastButton === "") {
             window.clearInterval(snakeLoopId);
             let downSnake = () => {
-                let currentSnake = snakeLocation.head;
-                return snakeMove(boardSquares, currentSnake, -25, "down");
+                return snakeMove(snakeArray, boardSquares, -25, "down");
             };
         snakeLoopId = window.setInterval(downSnake,(1000/snakeSpeed));
         };
     });
     //Each time there is a win create a new key pair for the snakeObject
-    let checkForWin = (currentSnakeHead,currentApple) => {
-        currentSnakeHead = snakeArray[0];
+    let checkForWin = (currentSnakeHead,currentApple, snakeArray) => {
     
     //if the snake head is the same as the apple
         if (boardSquares[currentSnakeHead] == boardSquares[currentApple]) {
     //add the current snake head position to the snake body array 
-            snakeBody.push(currentSnake);
-            numberOfWins += 1;
+            snakeArray.push(currentSnakeHead);
+            getAppleLocation(boardSquares);
+            boardSquares[currentApple].classList.remove("apple");
+           
         }
+       
     }
 
 
 let snakeMove = (snakeArray, boardSquares, directionValue, direction) =>  {
     //Check the new location to move to 
     let currentSnakeHead = snakeArray[0];
+    checkForWin(currentSnakeHead,currentApple, snakeArray)
     let newSnakeHead = currentSnakeHead - directionValue;
     //Push this new value to the start of the snake array
-    snakeArray.shift (newSnakeHead);
+    snakeArray.push(newSnakeHead);
+    console.log(snakeArray)
     //This now gives an array that is now one too long so delete the last item but hold it in a new var
-    let lastSnakePart = snakeArray.pop()
-    //For each element in the snake array loop through it and access the nodelist at those indexes 
-    for (i = 0; i <snakeArray; i++){
-    //Add the snake classlist at those indexes
-        let eachSnakeBodyPart = snakeArray[i];
-       let snakeIndexValue = boardSquares[eachSnakeBodyPart]
-        snakeIndexValue[eachSnakeBodyPart].classList.add("snake--head");
-     };
+    let lastSnakePart = snakeArray.shift()
+    snakeArray.forEach((part) => {
+       let eachPartIndex = boardSquares[part]
+       eachPartIndex.classList.add("snake--head");
+     });
     //Now remove the snake value from the value in the final array
     let bodyRemoveSnakeBodyPart = boardSquares[lastSnakePart];
     bodyRemoveSnakeBodyPart.classList.remove("snake--head");
