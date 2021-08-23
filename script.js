@@ -2,7 +2,6 @@
 const startGame = document.querySelector("#start");
 const endGame = document.querySelector("#end");
 const startButton = document.querySelector("#start__button");
-const replayButton = document.querySelector("#start__button");
 const boardSquares= document.querySelectorAll(".board__square");
 const board = document.querySelector("#board");
 const textScreen = document.querySelector("#textScreen");
@@ -12,6 +11,8 @@ const right = document.querySelector("#right");
 const down = document.querySelector("#down");
 const levelButton = document.querySelectorAll(".level__button");
 const level = document.querySelector(".level");
+const replay = document.querySelector("#replay");
+const replayButton = document.querySelector("#replay");
 
 //Declare gloabl vars 
 // let snakeBody = [];
@@ -72,7 +73,18 @@ startButton.addEventListener("click", () => {
     }
 });
 
-
+replayButton.addEventListener("click", () => {
+    textScreen.classList.remove("screen")
+    replay.classList.add("replay--hide");
+    replay.classList.remove("replay");
+    board.classList.remove("screen--hide");
+    board.classList.add("screen");
+    snakeArray = [];
+    lastButton = ""; 
+    currentApple = 0;
+    getAppleLocation(boardSquares);
+    getStartingSnake(snakeArray, boardSquares);
+})
 // 2. Set up the logic for the moving snake 
 
 let snakeLoopId; 
@@ -127,8 +139,30 @@ let snakeLoopId;
             getAppleLocation(boardSquares)
            
         }
-       
     }
+
+    let checkIfLose = (newSnakeHead) => {
+    if (newSnakeHead > 625 || newSnakeHead < 0) {
+        board.classList.add("screen--hide");
+        textScreen.classList.remove("screen--hide")
+        textScreen.classList.add("screen")
+        replay.classList.remove("replay--hide");
+        replay.classList.add("replay");
+        clearInterval(snakeLoopId);
+        boardSquares[currentApple].classList.remove("apple");
+        snakeArray.forEach((part) => {
+            let eachPartIndex = boardSquares[part]
+            eachPartIndex.classList.remove("snake--head");
+          });
+        snakeArray = [];
+        currentSnakeHead = 0;
+        directionValue = 0;
+        newSnakeHead = 0;
+        currentApple  = 0;
+        getAppleLocation(boardSquares);
+        getStartingSnake(snakeArray, boardSquares);
+    }
+    };
 
 
 let snakeMove = (directionValue, direction) =>  {
@@ -136,6 +170,7 @@ let snakeMove = (directionValue, direction) =>  {
     let currentSnakeHead = snakeArray[0];
     checkForWin(currentSnakeHead,currentApple, snakeArray)
     let newSnakeHead = currentSnakeHead - directionValue;
+    checkIfLose(newSnakeHead);
     //Push this new value to the start of the snake array
     snakeArray.unshift(newSnakeHead);
     console.log(snakeArray)
@@ -152,12 +187,7 @@ let snakeMove = (directionValue, direction) =>  {
     return snakeArray;
     };
 
-//Every time there is a win a key value pair body part is created in the snake 
 
-
-//Winnning the round//
-
-// //Ending the game//
 
 //     If the snake hits x or y coordinate of 1 or 25 = game over
 //     if snakeHead === x & y of other snake body also game over 
