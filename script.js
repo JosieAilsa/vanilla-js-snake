@@ -13,6 +13,8 @@ const levelButton = document.querySelectorAll(".level__button");
 const level = document.querySelector(".level");
 const replay = document.querySelector("#replay");
 const replayButton = document.querySelector("#replay");
+const currentScoreText = document.querySelector("#current-score__value");
+const highScore = document.querySelector("high-score__value");
 
 //Declare gloabl vars 
 // let snakeBody = [];
@@ -24,14 +26,16 @@ let snakeArray = [];
 let lastButton = "";
 let snakeSpeed = 0;  
 let currentApple;
+let currentScore = 0;
+let highScoreArray = [];
 
 
 ///Get random apple function 
-let getAppleLocation = (boardSquares) => {
+let getAppleLocation = (boardSquares, getAppleRandomIndex, appleLocation ) => {
     //Create a random number between 0-625
-    let getAppleRandomIndex = Math.floor(Math.random() * 626);
+    getAppleRandomIndex = Math.floor(Math.random() * 626);
     //Set this to the apple location 
-    let appleLocation = boardSquares[getAppleRandomIndex]; 
+    appleLocation = boardSquares[getAppleRandomIndex]; 
     //Add a class to this location 
     appleLocation.classList.add("apple");
     currentApple = getAppleRandomIndex;
@@ -129,7 +133,7 @@ let snakeLoopId;
         };
     });
     //Each time there is a win create a new key pair for the snakeObject
-    let checkForWin = (currentSnakeHead,currentApple, snakeArray) => {
+    let checkIfWin = (currentSnakeHead,currentApple, snakeArray) => {
     
     //if the snake head is the same as the apple
         if (boardSquares[currentSnakeHead] == boardSquares[currentApple]) {
@@ -137,12 +141,14 @@ let snakeLoopId;
             snakeArray.push(currentSnakeHead);
             boardSquares[currentApple].classList.remove("apple")
             getAppleLocation(boardSquares)
-           
+            currentScore += (10 * snakeSpeed)
+            currentScoreText.innerHTML = `${currentScore}`;
         }
     }
 
     let checkIfLose = (newSnakeHead) => {
     if (newSnakeHead > 625 || newSnakeHead < 0) {
+        highScoreArray.push(currentScore);
         board.classList.add("screen--hide");
         textScreen.classList.remove("screen--hide")
         textScreen.classList.add("screen")
@@ -150,6 +156,7 @@ let snakeLoopId;
         replay.classList.add("replay");
         clearInterval(snakeLoopId);
         boardSquares[currentApple].classList.remove("apple");
+        currentApple = 0;
         snakeArray.forEach((part) => {
             let eachPartIndex = boardSquares[part]
             eachPartIndex.classList.remove("snake--head");
@@ -158,9 +165,10 @@ let snakeLoopId;
         currentSnakeHead = 0;
         directionValue = 0;
         newSnakeHead = 0;
-        currentApple  = 0;
-        getAppleLocation(boardSquares);
+        currentApple = 0;
         getStartingSnake(snakeArray, boardSquares);
+        console.log(highScoreValue());
+        highScore.innerHTML = `${highScoreValue()}`
     }
     };
 
@@ -168,7 +176,7 @@ let snakeLoopId;
 let snakeMove = (directionValue, direction) =>  {
     //Check the new location to move to 
     let currentSnakeHead = snakeArray[0];
-    checkForWin(currentSnakeHead,currentApple, snakeArray)
+    checkIfWin(currentSnakeHead,currentApple, snakeArray)
     let newSnakeHead = currentSnakeHead - directionValue;
     checkIfLose(newSnakeHead);
     //Push this new value to the start of the snake array
@@ -186,6 +194,14 @@ let snakeMove = (directionValue, direction) =>  {
     lastButton = `${direction}`;
     return snakeArray;
     };
+
+    let highScoreValue = () => {
+    let highestScore =  highScoreArray.reduce(function(a,b) {
+        return Math.max(a,b)
+    },0)
+    return highestScore;
+    };
+
 
 
 
