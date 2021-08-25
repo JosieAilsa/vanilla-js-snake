@@ -14,7 +14,7 @@ const level = document.querySelector(".level");
 const replay = document.querySelector("#replay");
 const replayButton = document.querySelector("#replay");
 const currentScoreText = document.querySelector("#current-score__value");
-const highScore = document.querySelector("high-score__value");
+const highScore = document.querySelector("#high-score__value");
 
 //Declare gloabl vars 
 // let snakeBody = [];
@@ -146,6 +146,9 @@ let snakeLoopId;
         }
     }
 
+    
+    
+
     let checkIfLose = (newSnakeHead) => {
     if (newSnakeHead > 625 || newSnakeHead < 0) {
         highScoreArray.push(currentScore);
@@ -167,8 +170,8 @@ let snakeLoopId;
         newSnakeHead = 0;
         currentApple = 0;
         getStartingSnake(snakeArray, boardSquares);
-        console.log(highScoreValue());
-        highScore.innerHTML = `${highScoreValue()}`
+        let highestScore = Math.max.apply(Math, highScoreArray);
+        highScore.innerHTML = `${highestScore}`;
     }
     };
 
@@ -193,13 +196,6 @@ let snakeMove = (directionValue, direction) =>  {
     boardSquares[lastSnakePart].classList.remove("snake--head");
     lastButton = `${direction}`;
     return snakeArray;
-    };
-
-    let highScoreValue = () => {
-    let highestScore =  highScoreArray.reduce(function(a,b) {
-        return Math.max(a,b)
-    },0)
-    return highestScore;
     };
 
 
