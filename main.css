@@ -26,6 +26,15 @@ body .game-details {
 body .level--error {
   border: 2px solid red;
 }
+body .level--errormsg-hide {
+  display: none;
+}
+body .level--errormsg {
+  color: red;
+  font-size: 75%;
+  padding: 0px;
+  margin: 0px;
+}
 body .scores {
   display: flex;
   flex-direction: row;

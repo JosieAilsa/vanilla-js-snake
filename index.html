@@ -12,6 +12,7 @@
     <div class = "game-details">
         <div class ="level">
             <h2 class = "level__text">Difficulty:</h2> 
+            <h4 id = "error-msg" class = "level--errormsg-hide">Please choose a level</h4>
             <input type = "radio" class = "level__button" name ="difficulty" value = 2>
             <label for="level-1">Easy</label>
             <input type = "radio"  class = "level__button" name ="difficulty" value = 4>
@@ -23,19 +24,19 @@
         </div>
         <div id = "score">
             <div class = "scores">
-                <h2 class = "score__text">Your score:</h2> 
-                <h2 id = "current-score__value"> X </h2>
+                <h2 class = "score__text">Current score:</h2> 
+                <h2 id = "current-score__value"> 0 </h2>
             </div>
             <div class = "scores">
                 <h2 class = "score__text">High score:</h2> 
-                <h2 id = "high-score__value"> X </h2>
+                <h2 id = "high-score__value"> 0 </h2>
             </div>
         </div>
     </div>
     <!-- 25 by 25 Board -->
     <div id = "textScreen"class = "screen">
         <div id = "start" class ="start"> 
-            <h1 class = "start__title">Snake</h1>
+            <h3 class = "start__title">Snake</h3>
             <button id ="start__button">Let's play!</button>
         </div>
         <div id = "replay" class ="replay--hide"> 

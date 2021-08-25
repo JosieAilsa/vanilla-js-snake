@@ -18,6 +18,15 @@ body {
     .level--error{
         border: 2px solid red;
     }
+    .level--errormsg-hide{
+        display: none;
+    }
+    .level--errormsg{
+        color: red;
+        font-size: 75%;
+        padding: 0px;
+        margin: 0px;
+    }
 
     .scores {
         display: flex;

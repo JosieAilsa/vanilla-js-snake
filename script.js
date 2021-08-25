@@ -15,6 +15,7 @@ const replay = document.querySelector("#replay");
 const replayButton = document.querySelector("#replay");
 const currentScoreText = document.querySelector("#current-score__value");
 const highScore = document.querySelector("#high-score__value");
+const levelErrorMsg = document.querySelector("#error-msg");
 
 //Declare gloabl vars 
 // let snakeBody = [];
@@ -62,6 +63,8 @@ startButton.addEventListener("click", () => {
     if (snakeSpeed >= 1) {
 // Remove the difficuty error if showing 
         level.classList.remove("level--error")
+        levelErrorMsg.classList.add("level--errormsg-hide");
+        levelErrorMsg.classList.remove("level--errormsg");
     // Remove add the start hidden class 
         startGame.classList.add("start--hide");
         textScreen.classList.remove("screen");
@@ -74,6 +77,8 @@ startButton.addEventListener("click", () => {
         getStartingSnake(snakeArray, boardSquares);
     } else {
     level.classList.add("level--error")
+    levelErrorMsg.classList.remove("level--errormsg-hide");
+    levelErrorMsg.classList.add("level--errormsg");
     }
 });
 
@@ -169,9 +174,10 @@ let snakeLoopId;
         directionValue = 0;
         newSnakeHead = 0;
         currentApple = 0;
+        currentScore = 0;
         getStartingSnake(snakeArray, boardSquares);
-        let highestScore = Math.max.apply(Math, highScoreArray);
-        highScore.innerHTML = `${highestScore}`;
+        highScore.innerHTML = `${getHighScore()}`;
+        currentScore.innerHTML = currentScore;
     }
     };
 
@@ -198,8 +204,16 @@ let snakeMove = (directionValue, direction) =>  {
     return snakeArray;
     };
 
-
-
+let getHighScore = () => {
+    if (highScoreArray.length > 1) {
+    let highScoreValue = highScoreArray.reduce(function(a,b) {
+        return Math.max(a,b);
+    },0)
+    return highScoreValue;
+    } else {
+    return highScoreArray [0];
+}
+};
 
 //     If the snake hits x or y coordinate of 1 or 25 = game over
 //     if snakeHead === x & y of other snake body also game over 
