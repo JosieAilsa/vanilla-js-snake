@@ -83,7 +83,9 @@ startButton.addEventListener("click", () => {
 });
 
 replayButton.addEventListener("click", () => {
+    //Hide the board screen 
     textScreen.classList.remove("screen")
+    //Show the replay screen 
     replay.classList.add("replay--hide");
     replay.classList.remove("replay");
     board.classList.remove("screen--hide");
@@ -151,11 +153,7 @@ let snakeLoopId;
         }
     }
 
-    
-    
-
-    let checkIfLose = (newSnakeHead) => {
-    if (newSnakeHead > 625 || newSnakeHead < 0) {
+    let updateLose = () => {
         highScoreArray.push(currentScore);
         board.classList.add("screen--hide");
         textScreen.classList.remove("screen--hide")
@@ -178,8 +176,20 @@ let snakeLoopId;
         getStartingSnake(snakeArray, boardSquares);
         highScore.innerHTML = `${getHighScore()}`;
         currentScore.innerHTML = currentScore;
+    } 
+
+
+    let checkIfLose = (newSnakeHead) => {
+        if (newSnakeHead > 625 || newSnakeHead < 0) {
+        updateLose()
+        return;
     }
-    };
+    snakeArray.forEach((part) => {
+        if (part === newSnakeHead) {
+            updateLose()
+        }
+        });
+        }
 
 
 let snakeMove = (directionValue, direction) =>  {
@@ -192,7 +202,7 @@ let snakeMove = (directionValue, direction) =>  {
     snakeArray.unshift(newSnakeHead);
     console.log(snakeArray)
     //This now gives an array that is now one too long so delete the last item but hold it in a new var
-    let lastSnakePart = snakeArray.pop()
+    let lastSnakePart = snakeArray.pop();
     snakeArray.forEach((part) => {
        let eachPartIndex = boardSquares[part]
        eachPartIndex.classList.add("snake--head");
