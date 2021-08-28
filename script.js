@@ -179,17 +179,26 @@ let snakeLoopId;
     } 
 
 
-    let checkIfLose = (newSnakeHead) => {
+    let checkIfLose = (newSnakeHead, currentSnakeHead) => {
+    //If the snake touches the top or bottom lines
         if (newSnakeHead > 625 || newSnakeHead < 0) {
-        updateLose()
-        return;
-    }
-    snakeArray.forEach((part) => {
-        if (part === newSnakeHead) {
             updateLose()
+            return;
+            }
+    //Or if it touches the left or right sides 
+
+
+    //Or if it touches its own body
+        snakeArray.forEach((part) => {
+            if (part === newSnakeHead) {
+                updateLose()
+            }
+          });
+
         }
-        });
-        }
+    //Give the board squares a value. say if the current snake is = to boardsquare[currentsnake].value then run this function 
+    //If the current snake is 24,48,72,96,120,144,168,192,216,240,264,288,312,336,360,384,408,432,456,480,504,528,552,576,600,624
+    //Or 25,50,75,100,125,150,175,200,225,250,275,
 
 
 let snakeMove = (directionValue, direction) =>  {
@@ -197,7 +206,7 @@ let snakeMove = (directionValue, direction) =>  {
     let currentSnakeHead = snakeArray[0];
     checkIfWin(currentSnakeHead,currentApple, snakeArray)
     let newSnakeHead = currentSnakeHead - directionValue;
-    checkIfLose(newSnakeHead);
+    checkIfLose(newSnakeHead, currentSnakeHead);
     //Push this new value to the start of the snake array
     snakeArray.unshift(newSnakeHead);
     console.log(snakeArray)
