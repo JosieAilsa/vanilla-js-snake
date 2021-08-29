@@ -3,6 +3,7 @@ const startGame = document.querySelector("#start");
 const endGame = document.querySelector("#end");
 const startButton = document.querySelector("#start__button");
 const boardSquares= document.querySelectorAll(".board__square");
+const loseSquares = document.querySelectorAll(".lose__square")
 const board = document.querySelector("#board");
 const textScreen = document.querySelector("#textScreen");
 const up = document.querySelector("#up");
@@ -152,6 +153,8 @@ let snakeLoopId;
             currentScoreText.innerHTML = `${currentScore}`;
         }
     }
+     
+ 
 
     let updateLose = () => {
         highScoreArray.push(currentScore);
@@ -163,6 +166,10 @@ let snakeLoopId;
         clearInterval(snakeLoopId);
         boardSquares[currentApple].classList.remove("apple");
         currentApple = 0;
+        for (let i = 0; i < boardSquares.length; i++ ){
+            boardSquares[i].classList.remove("snake--head")
+            boardSquares[i].classList.remove("apple")
+        }
         snakeArray.forEach((part) => {
             let eachPartIndex = boardSquares[part]
             eachPartIndex.classList.remove("snake--head");
@@ -175,38 +182,44 @@ let snakeLoopId;
         currentScore = 0;
         getStartingSnake(snakeArray, boardSquares);
         highScore.innerHTML = `${getHighScore()}`;
-        currentScore.innerHTML = currentScore;
+        currentScoreText.innerHTML = `${currentScore}`;
     } 
 
-
+    let checkIfSnakeOverlap = () => {
+        return  snakeArray.forEach((part) => {
+                if (part === newSnakeHead) {
+                    return true 
+                } else {
+                    return false 
+                }
+            });
+        };
+        
     let checkIfLose = (newSnakeHead, currentSnakeHead) => {
     //If the snake touches the top or bottom lines
-        if (newSnakeHead > 625 || newSnakeHead < 0) {
-            updateLose()
-            return;
+        if 
+            ((newSnakeHead > 625 || newSnakeHead < 0) || 
+            (boardSquares[currentSnakeHead].classList.contains("lose__square") 
+            &&
+            boardSquares[newSnakeHead].classList.contains("lose__square")) || 
+            (checkIfSnakeOverlap === true)
+            )
+            {
+            return true;
             }
-    //Or if it touches the left or right sides 
-
-
-    //Or if it touches its own body
-        snakeArray.forEach((part) => {
-            if (part === newSnakeHead) {
-                updateLose()
-            }
-          });
-
-        }
-    //Give the board squares a value. say if the current snake is = to boardsquare[currentsnake].value then run this function 
-    //If the current snake is 24,48,72,96,120,144,168,192,216,240,264,288,312,336,360,384,408,432,456,480,504,528,552,576,600,624
-    //Or 25,50,75,100,125,150,175,200,225,250,275,
-
+    };
 
 let snakeMove = (directionValue, direction) =>  {
     //Check the new location to move to 
     let currentSnakeHead = snakeArray[0];
     checkIfWin(currentSnakeHead,currentApple, snakeArray)
     let newSnakeHead = currentSnakeHead - directionValue;
-    checkIfLose(newSnakeHead, currentSnakeHead);
+    let ifLose = checkIfLose(newSnakeHead, currentSnakeHead);
+    if (ifLose === true) {
+        updateLose()
+        //Return to exit out of function 
+        return
+    }
     //Push this new value to the start of the snake array
     snakeArray.unshift(newSnakeHead);
     console.log(snakeArray)
@@ -233,6 +246,7 @@ let getHighScore = () => {
     return highScoreArray [0];
 }
 };
+
 
 //     If the snake hits x or y coordinate of 1 or 25 = game over
 //     if snakeHead === x & y of other snake body also game over 
