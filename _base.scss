@@ -1,7 +1,14 @@
 // Add styles for snake
 
-//Add styles for apple
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+$primary-colour: #B1EA72;
+$secondary-colour: #DEA380;
+$tiertiary-colour: #054B3F;
 
+
+*{
+    font-family: 'Press Start 2P', cursive;
+}
 .apple{
     background-color:red;
 }
@@ -9,3 +16,91 @@
 .snake--head{
     background-color: greenyellow;
 }
+
+#up__arrow {
+    transform: rotate(270deg);
+}
+#left__arrow {
+    transform: rotate(180deg);
+}
+#down__arrow {
+    transform: rotate(90deg);
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+
+    .controls__left-right{
+        display: flex;
+        flex-direction: row;
+    }
+    @media only screen and (max-width: 480px) {
+        margin-top: 5vw;
+    }
+}
+
+
+.controls__button{
+    padding: 0px;
+    width: 10vmin;
+    height: 7vmin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid black 1vw;
+    background-color:$primary-colour;
+    @media only screen and (max-width: 480px) {
+        height: 20vmin !important;
+        width: 30vmin !important;
+
+    }
+}
+
+.gamelevel{
+    font-size: 30%;
+    text-align: center;
+    color: $primary-colour;
+    .level__text{
+        display: block;
+        text-align: center;
+    }
+}
+
+#score{
+    font-size: 30%;
+    h2 {
+        color: $primary-colour;
+    } 
+};
+
+#start__img{
+    height: 50%;
+    width: 50%;
+}
+
+#replay__img{
+    height: 40%;
+    width: 40%;
+}
+.level{
+  font-size: 2.25rem;
+  color: var(--color);
+  display: grid;
+  grid-template-columns: min-content auto;
+  grid-gap: 0.5em;
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+}
+  
+:root {
+    --color: $primary-colour;
+    box-sizing: border-box;
+  }
+
+   
+

@@ -2,11 +2,26 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    background-color: darkslategrey;
     margin: 0;
     width: 100vw;
     height: 100vh;
+    background-size: 100%;
+    background-position: center;
+
+@media only screen and (max-width: 480px) {
+    background-image: url("./smbg-01.svg");
+    justify-content: center;
+}
+  
+@media only screen and (min-width: 480px) and (max-width: 1366px) {
+    background-image: url("./medbg-01.svg");
+    justify-content: space-around;
+}
+
+@media only screen and (min-width:1367px){
+    background-image: url("./lgbg-01.svg");
+    justify-content: space-around;
+}
 
     .game-details {
         display: flex;
@@ -14,6 +29,9 @@ body {
         justify-content: flex-start;
         color: cornsilk;
         width: 80vmin;
+        @media only screen and (max-width: 480px) {
+        margin-bottom: 5vh;
+        }
     }
     .level--error{
         border: 2px solid red;
@@ -38,6 +56,7 @@ body {
     flex-direction: row;
     justify-content: space-between;
     width: 80vmin;
+    font-size: 35%;
 
     #score__text, #score__value {
         color: cornsilk;
@@ -45,12 +64,12 @@ body {
     }
 
 .screen {
-    background-color: cornsilk;
     width: 80vmin;
     height: 80vmin;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    background-color: rgb(177,234,114, 0.5);
 
     .board__square{
         width: 4%;
@@ -72,7 +91,10 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
+    background-color: rgb(177,234,114, 0.5);
+    .start__title{
+        text-align: center;
+    }
 }
 .replay--hide{
     display: none !important;

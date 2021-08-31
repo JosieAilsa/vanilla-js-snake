@@ -10,17 +10,26 @@
 </head>
 <body>
     <div class = "game-details">
-        <div class ="level">
-            <h2 class = "level__text">Difficulty:</h2> 
+        <div class ="gamelevel">
+            <h2 class = "level__text">Select level:</h2> 
             <h4 id = "error-msg" class = "level--errormsg-hide">Please choose a level</h4>
-            <input type = "radio" class = "level__button" name ="difficulty" value = 2>
-            <label for="level-1">Easy</label>
-            <input type = "radio"  class = "level__button" name ="difficulty" value = 4>
-            <label for="level-2">Medium</label>
-            <input type = "radio"  class = "level__button" name ="difficulty" value = 8>
-            <label for="level-3">Hard</label>
-            <input type = "radio"  class = "level__button" name ="difficulty" value = 10>
-            <label for="level-3">Expert</label>
+            <span class ="level">
+                <input type = "radio" class = "level__button" name ="difficulty" value = 2>
+                <label for="level-1">Easy</label>
+                <span class="radio__control"></span>
+             </span>
+            <span class ="level">
+                <input type = "radio"  class = "level__button" name ="difficulty" value = 4>
+                <label for="level-2">Medium</label>
+            </span>
+            <span class ="level">
+                <input type = "radio"  class = "level__button" name ="difficulty" value = 8>
+                <label for="level-3">Hard</label>
+            </span>
+            <span class ="level"> 
+                <input type = "radio"  class = "level__button" name ="difficulty" value = 10>
+                <label for="level-3">Expert</label>
+            </span>
         </div>
         <div id = "score">
             <div class = "scores">
@@ -36,11 +45,13 @@
     <!-- 25 by 25 Board -->
     <div id = "textScreen"class = "screen">
         <div id = "start" class ="start"> 
-            <h3 class = "start__title">Snake</h3>
+            <img id = "start__img" src="./Anaconda.svg" alt = "snake">
+            <h2 class = "start__title"> Retro Snake</h3>
             <button id ="start__button">Let's play!</button>
         </div>
         <div id = "replay" class ="replay--hide"> 
-            <h1 class = "replay__title">Too bad :( </h1>
+            <img id = "replay__img" src="./dead.svg" alt="you lose!">
+            <h2 class = "replay__title">You died</h1>
             <button id ="replay__button">Play again!</button>
         </div>
     </div>
@@ -701,10 +712,20 @@
     </div>
     <!-- //Control buttons -->
     <div class = "controls">
-        <button id = "up">^</button>
-        <button id = "left"><</button>
-        <button id = "right">></button>
-        <button id = "down"> v </button>
+        <button id = "up" class ="controls__button">
+            <h4 id = "up__arrow">&#x27A4;</h4>
+        </button>
+        <div class ="controls__left-right">
+            <button id = "left" class ="controls__button">
+                <h4 id = "left__arrow">&#x27A4;</h4>
+            </button>
+            <button id = "right" class ="controls__button"> 
+                <h4 id = "right__arrow">&#x27A4;</h4>
+            </button>
+        </div>
+        <button id = "down" class ="controls__button">
+            <h4 id = "down__arrow">&#x27A4;</h4>
+        </button>
     </div>
 </body>
 </html>
