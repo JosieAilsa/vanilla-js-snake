@@ -49,7 +49,7 @@ let getStartingSnake = () => {
     snakeArray.push(boardCenter);
     let startingSnake = boardSquares[boardCenter];
     //Put the snake class on the center peice 
-    startingSnake.classList.add("snake--head");
+    startingSnake.classList.add("snake");
     return snakeArray;
 }
 
@@ -167,12 +167,12 @@ let snakeLoopId;
         boardSquares[currentApple].classList.remove("apple");
         currentApple = 0;
         for (let i = 0; i < boardSquares.length; i++ ){
-            boardSquares[i].classList.remove("snake--head")
+            boardSquares[i].classList.remove("snake")
             boardSquares[i].classList.remove("apple")
         }
         snakeArray.forEach((part) => {
             let eachPartIndex = boardSquares[part]
-            eachPartIndex.classList.remove("snake--head");
+            eachPartIndex.classList.remove("snake");
           });
         snakeArray = [];
         currentSnakeHead = 0;
@@ -227,11 +227,11 @@ let snakeMove = (directionValue, direction) =>  {
     let lastSnakePart = snakeArray.pop();
     snakeArray.forEach((part) => {
        let eachPartIndex = boardSquares[part]
-       eachPartIndex.classList.add("snake--head");
+       eachPartIndex.classList.add("snake");
      });
     console.log(lastSnakePart)
     //Now remove the snake value from the value in the final array
-    boardSquares[lastSnakePart].classList.remove("snake--head");
+    boardSquares[lastSnakePart].classList.remove("snake");
     lastButton = `${direction}`;
     return snakeArray;
     };

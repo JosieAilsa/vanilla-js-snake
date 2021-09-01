@@ -7,51 +7,8 @@
   background-color: red;
 }
 
-.snake--head {
+.snake {
   background-color: greenyellow;
-}
-
-#up__arrow {
-  transform: rotate(270deg);
-}
-
-#left__arrow {
-  transform: rotate(180deg);
-}
-
-#down__arrow {
-  transform: rotate(90deg);
-}
-
-.controls {
-  display: flex;
-  flex-direction: column;
-}
-.controls .controls__left-right {
-  display: flex;
-  flex-direction: row;
-}
-@media only screen and (max-width: 480px) {
-  .controls {
-    margin-top: 5vw;
-  }
-}
-
-.controls__button {
-  padding: 0px;
-  width: 10vmin;
-  height: 7vmin;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: solid black 1vw;
-  background-color: #B1EA72;
-}
-@media only screen and (max-width: 480px) {
-  .controls__button {
-    height: 20vmin !important;
-    width: 30vmin !important;
-  }
 }
 
 .gamelevel {
@@ -59,16 +16,50 @@
   text-align: center;
   color: #B1EA72;
 }
+@media only screen and (max-width: 1024px) {
+  .gamelevel {
+    font-size: 50% !important;
+  }
+}
 .gamelevel .level__text {
-  display: block;
   text-align: center;
+  font-size: 100%;
+}
+
+.level--error {
+  border: 2px solid red;
+}
+
+.level--errormsg-hide {
+  display: none;
+}
+
+.level--errormsg {
+  color: red;
+  font-size: 95%;
+  padding: 0px;
+  margin-top: 4vh;
 }
 
 #score {
-  font-size: 30%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 80vmin;
+  font-size: 35%;
 }
 #score h2 {
   color: #B1EA72;
+}
+@media only screen and (min-width: 1024px) {
+  #score {
+    font-size: 70%;
+  }
+}
+
+.scores {
+  display: flex;
+  flex-direction: row;
 }
 
 #start__img {
@@ -82,21 +73,43 @@
 }
 
 .level {
-  font-size: 2.25rem;
-  color: var(--color);
-  display: grid;
-  grid-template-columns: min-content auto;
-  grid-gap: 0.5em;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  padding-top: 0px !important;
 }
-.level input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+.level label {
+  margin-top: 10px;
 }
 
-:root {
-  --color: $primary-colour;
-  box-sizing: border-box;
+input[type=radio]:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #d1d3d1;
+  content: "";
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}
+
+input[type=radio]:checked:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #B1EA72;
+  content: "";
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid #054B3F;
 }
 
 body {
@@ -131,39 +144,7 @@ body .game-details {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  color: cornsilk;
   width: 80vmin;
-}
-@media only screen and (max-width: 480px) {
-  body .game-details {
-    margin-bottom: 5vh;
-  }
-}
-body .level--error {
-  border: 2px solid red;
-}
-body .level--errormsg-hide {
-  display: none;
-}
-body .level--errormsg {
-  color: red;
-  font-size: 75%;
-  padding: 0px;
-  margin: 0px;
-}
-body .scores {
-  display: flex;
-  flex-direction: row;
-}
-body #score {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 80vmin;
-  font-size: 35%;
-}
-body #score #score__text, body #score #score__value {
-  color: cornsilk;
 }
 body .screen {
   width: 80vmin;
@@ -209,9 +190,50 @@ body .replay {
 body .board--hide {
   display: none;
 }
-body .controls {
+
+#up__arrow {
+  transform: rotate(270deg);
+}
+
+#left__arrow {
+  transform: rotate(180deg);
+}
+
+#down__arrow {
+  transform: rotate(90deg);
+}
+
+.controls {
   width: 80vmin;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  margin-top: 1.5%;
+}
+.controls .controls__left-right {
+  display: flex;
+  flex-direction: row;
+}
+.controls .controls__button {
+  padding: 0px;
+  width: 10vmin;
+  height: 7vmin;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid black 1vw;
+  background-color: greenyellow;
+}
+@media only screen and (max-width: 480px) {
+  .controls .controls__button {
+    height: 20vmin !important;
+    width: 30vmin !important;
+  }
+}
+@media only screen and (min-width: 480px) {
+  .controls .controls__button {
+    height: 7.5vmin !important;
+    width: 12vmin !important;
+  }
 }

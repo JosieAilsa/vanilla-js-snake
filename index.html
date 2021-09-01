@@ -11,25 +11,18 @@
 <body>
     <div class = "game-details">
         <div class ="gamelevel">
-            <h2 class = "level__text">Select level:</h2> 
             <h4 id = "error-msg" class = "level--errormsg-hide">Please choose a level</h4>
-            <span class ="level">
-                <input type = "radio" class = "level__button" name ="difficulty" value = 2>
-                <label for="level-1">Easy</label>
-                <span class="radio__control"></span>
-             </span>
-            <span class ="level">
-                <input type = "radio"  class = "level__button" name ="difficulty" value = 4>
-                <label for="level-2">Medium</label>
-            </span>
-            <span class ="level">
-                <input type = "radio"  class = "level__button" name ="difficulty" value = 8>
-                <label for="level-3">Hard</label>
-            </span>
-            <span class ="level"> 
-                <input type = "radio"  class = "level__button" name ="difficulty" value = 10>
-                <label for="level-3">Expert</label>
-            </span>
+                <h4>Select level:</h4>
+                <div class = "level" data-type="horizontal">
+                <label for="level-1"><input id ="level-1" type = "radio" class = "level__button" name ="difficulty" value = 2>
+                 Easy</label>
+                 <label for="level-2"><input id ="level-2" type = "radio" class = "level__button" name ="difficulty" value = 4>
+                Medium</label>
+                <label for="level-3"><input id ="level-3" type = "radio" class = "level__button" name ="difficulty" value = 8>
+                Hard</label>
+                <label for="level-4"><input id ="level-4" type = "radio" class = "level__button" name ="difficulty" value = 10>
+                Expert</label>
+                </div>
         </div>
         <div id = "score">
             <div class = "scores">
