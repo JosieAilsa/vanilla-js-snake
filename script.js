@@ -52,6 +52,28 @@ let getStartingSnake = () => {
     startingSnake.classList.add("snake");
     return snakeArray;
 }
+let runGame = () => {
+    // Remove the difficuty error if showing 
+    level.classList.remove("level--error")
+    levelErrorMsg.classList.add("level--errormsg-hide");
+    levelErrorMsg.classList.remove("level--errormsg");
+// Remove add the start hidden class 
+    startGame.classList.add("start--hide");
+    textScreen.classList.remove("screen");
+    textScreen.classList.add("screen--hide");
+    //Show the new game board 
+    board.classList.remove("screen--hide");
+    board.classList.add("screen");
+    //Add the static starting locations for the snake & apple
+    getAppleLocation(boardSquares);
+    getStartingSnake(snakeArray, boardSquares);
+}
+
+let showStartError = () => {
+    level.classList.add("level--error")
+    levelErrorMsg.classList.remove("level--errormsg-hide");
+    levelErrorMsg.classList.add("level--errormsg");
+}
 
 //Game setup
 levelButton.forEach((button) => {
@@ -62,24 +84,9 @@ levelButton.forEach((button) => {
 
 startButton.addEventListener("click", () => {
     if (snakeSpeed >= 1) {
-// Remove the difficuty error if showing 
-        level.classList.remove("level--error")
-        levelErrorMsg.classList.add("level--errormsg-hide");
-        levelErrorMsg.classList.remove("level--errormsg");
-    // Remove add the start hidden class 
-        startGame.classList.add("start--hide");
-        textScreen.classList.remove("screen");
-        textScreen.classList.add("screen--hide");
-        //Show the new game board 
-        board.classList.remove("screen--hide");
-        board.classList.add("screen");
-        //Add the static starting locations for the snake & apple
-        getAppleLocation(boardSquares);
-        getStartingSnake(snakeArray, boardSquares);
+        runGame();
     } else {
-    level.classList.add("level--error")
-    levelErrorMsg.classList.remove("level--errormsg-hide");
-    levelErrorMsg.classList.add("level--errormsg");
+        showStartError();
     }
 });
 
@@ -102,6 +109,10 @@ replayButton.addEventListener("click", () => {
 let snakeLoopId; 
 
     up.addEventListener("click", () => {
+        if (snakeSpeed < 1) {
+            showStartError();
+            return;
+        }
         if (lastButton === "left" || lastButton === "right" || lastButton === "") {
         window.clearInterval(snakeLoopId);
         let upSnake = () => {
@@ -112,6 +123,10 @@ let snakeLoopId;
     });
     
     left.addEventListener("click", () => {
+        if (snakeSpeed < 1) {
+            showStartError();
+            return;
+        }
         if (lastButton === "up" || lastButton === "down" || lastButton === "" ) {
             window.clearInterval(snakeLoopId);
             let leftSnake = () => {
@@ -122,6 +137,10 @@ let snakeLoopId;
     });
     
     right.addEventListener("click", () => {
+        if (snakeSpeed < 1) {
+            showStartError();
+            return;
+        }
         if (lastButton === "up" || lastButton === "down" || lastButton === "") {
             window.clearInterval(snakeLoopId);
             let rightSnake = () => {
@@ -132,6 +151,10 @@ let snakeLoopId;
     });
 
     down.addEventListener("click", () => {
+        if (snakeSpeed < 1) {
+            showStartError();
+            return;
+        }
         if (lastButton === "left" || lastButton === "right" || lastButton === "") {
             window.clearInterval(snakeLoopId);
             let downSnake = () => {

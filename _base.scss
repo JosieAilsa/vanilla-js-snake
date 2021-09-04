@@ -18,11 +18,13 @@ $tiertiary-colour: #054B3F;
 }
 
 .gamelevel{
-    font-size: 30%;
     text-align: center;
     color: $primary-colour;
     @media only screen and (max-width: 1024px) {
-      font-size: 50% !important;
+        font-size: 30%;
+      }
+    @media only screen and (min-width: 1024px) {
+      font-size: 70%;
     }
     .level__text{
        text-align: center;

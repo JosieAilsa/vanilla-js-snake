@@ -12,13 +12,17 @@
 }
 
 .gamelevel {
-  font-size: 30%;
   text-align: center;
   color: #B1EA72;
 }
 @media only screen and (max-width: 1024px) {
   .gamelevel {
-    font-size: 50% !important;
+    font-size: 30%;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .gamelevel {
+    font-size: 70%;
   }
 }
 .gamelevel .level__text {
