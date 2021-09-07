@@ -62,7 +62,11 @@ body {
     background-color: rgb(177,234,114, 0.5);
     .start__title{
         text-align: center;
+        color: $tiertiary-colour;
     }
+}
+.start__button, .replay__button {
+    color: $tiertiary-colour !important;
 }
 //Replay syling to look exactly same as board 
 .replay--hide{
@@ -84,12 +88,18 @@ body {
 ///Control Buttons 
     #up__arrow {
         transform: rotate(270deg);
+        color: $tiertiary-colour;
     }
     #left__arrow {
         transform: rotate(180deg);
+        color: $tiertiary-colour;
     }
     #down__arrow {
         transform: rotate(90deg);
+        color: $tiertiary-colour;
+    }
+    #right__arrow{
+        color: $tiertiary-colour;
     }
 
     .controls {
@@ -115,7 +125,7 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
-        border: solid black 1vw;
+        border: solid $tiertiary-colour 1vw;
         background-color:greenyellow;
         @media only screen and (max-width: 480px) {
             height: 20vmin !important;

@@ -179,6 +179,10 @@ body .start {
 }
 body .start .start__title {
   text-align: center;
+  color: #054B3F;
+}
+body .start__button, body .replay__button {
+  color: #054B3F !important;
 }
 body .replay--hide {
   display: none !important;
@@ -197,14 +201,21 @@ body .board--hide {
 
 #up__arrow {
   transform: rotate(270deg);
+  color: #054B3F;
 }
 
 #left__arrow {
   transform: rotate(180deg);
+  color: #054B3F;
 }
 
 #down__arrow {
   transform: rotate(90deg);
+  color: #054B3F;
+}
+
+#right__arrow {
+  color: #054B3F;
 }
 
 .controls {
@@ -226,7 +237,7 @@ body .board--hide {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: solid black 1vw;
+  border: solid #054B3F 1vw;
   background-color: greenyellow;
 }
 @media only screen and (max-width: 480px) {
