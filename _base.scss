@@ -56,7 +56,7 @@ $tiertiary-colour: #054B3F;
         color: $primary-colour;
     } 
     @media only screen and (min-width: 1024px) {
-        font-size: 70%;
+        font-size: 60% !important;
       }
 };
 
