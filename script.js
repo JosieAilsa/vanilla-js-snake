@@ -208,34 +208,31 @@ let snakeLoopId;
         currentScoreText.innerHTML = `${currentScore}`;
     } 
 
-    let checkIfSnakeOverlap = () => {
-        return  snakeArray.forEach((part) => {
+    let checkIfSnakeOverlap = (newSnakeHead) => {
+     let isOverlap;
+     snakeArray.forEach((part) => {
                 if (part === newSnakeHead) {
-                    return true 
-                } else {
-                    return false 
+                    isOverlap = true; 
                 }
             });
+        return isOverlap;
         };
         
     let checkIfLose = (newSnakeHead, currentSnakeHead) => {
-    //If the snake touches the top or bottom lines
-        if 
-            ((newSnakeHead > 625 || newSnakeHead < 0) || 
-            (boardSquares[currentSnakeHead].classList.contains("lose__square") 
-            &&
-            boardSquares[newSnakeHead].classList.contains("lose__square")) || 
-            (checkIfSnakeOverlap === true)
-            )
-            {
+    //If the snake touches the top or bottom lines or itself return true 
+        if (checkIfSnakeOverlap(newSnakeHead) === true) { 
             return true;
-            }
+        } else if ((newSnakeHead > 625) || (newSnakeHead < 0)) {
+            return true;
+        } else if (boardSquares[currentSnakeHead].classList.contains("lose__square") 
+        && boardSquares[newSnakeHead].classList.contains("lose__square")) { 
+            return true;
+        };
     };
 
 let snakeMove = (directionValue, direction) =>  {
     //Check the new location to move to 
     let currentSnakeHead = snakeArray[0];
-    checkIfWin(currentSnakeHead,currentApple, snakeArray)
     let newSnakeHead = currentSnakeHead - directionValue;
     let ifLose = checkIfLose(newSnakeHead, currentSnakeHead);
     if (ifLose === true) {
@@ -243,6 +240,7 @@ let snakeMove = (directionValue, direction) =>  {
         //Return to exit out of function 
         return
     }
+    checkIfWin(currentSnakeHead,currentApple, snakeArray);
     //Push this new value to the start of the snake array
     snakeArray.unshift(newSnakeHead);
     console.log(snakeArray)
